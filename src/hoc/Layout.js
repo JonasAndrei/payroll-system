@@ -1,31 +1,22 @@
-import { Link } from "react-router-dom";
+import { makeStyles } from '@material-ui/core/styles';
+import Navbar from '../components/Navbar.js';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+  }
+}));
 
 export default function Layout({ children }) {
+  const classes = useStyles();
+
   return (
-    <>
+    <div className={classes.root}>
       {/* Navigation */}
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/positions">Positions</Link>
-          </li>
-          <li>
-            <Link to="/deductions">Deductions</Link>
-          </li>
-          <li>
-            <Link to="/schedules">Schedules</Link>
-          </li>
-        </ul>
-      </nav>
+      <Navbar></Navbar>
 
       {/* Content */}
-      <div>{children}</div>
-    </>
+      {children}
+    </div>
   );
 }

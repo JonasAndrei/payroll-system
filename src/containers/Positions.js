@@ -1,11 +1,28 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import Container from "@material-ui/core/Container";
-
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { makeStyles } from '@material-ui/core/styles';
 import Table from "../components/Table";
 
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+}));
+
 const Position = () => {
+  const classes = useStyles();
   const [positions, setPositions] = useState([]);
   const [jobTitle, setJobTitle] = useState("");
   const [ratePerHour, setRatePerHour] = useState(0);
@@ -80,31 +97,29 @@ const Position = () => {
   }
 
   return (
-    <div>
-      <h1>Positions Screen</h1>
-      <Container maxWidth="xl">
-        <input
+    <main className={classes.content}>
+      <div className={classes.toolbar}/>
+        <Input
           type="text"
           name="title"
           value={jobTitle}
           placeholder="Job Title"
           onChange={(e) => setJobTitle(e.target.value)}
         />
-        <input
+        <Input
           type="number"
           name="rate"
           value={ratePerHour}
           placeholder="Rate Per Hour"
           onChange={(e) => setRatePerHour(e.target.value)}
         />
-        <input type="submit" value="Add" onClick={submitHandler} />
+        <Button variant="contained" onClick={submitHandler}>Add</Button>
 
         <div>
           {isLoading && <LinearProgress color="secondary" />}
           {positionsList}
         </div>
-      </Container>
-    </div>
+    </main>
   );
 };
 
